@@ -10,8 +10,8 @@ RULES = [
         "masvs": "MASVS-CRYPTO-1",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/",
         "owasp_text": "L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées.",
-        "description": "MD5 est cryptographiquement cassé depuis 2004. Vulnérable aux attaques par collision.",
-        "fix": "Utiliser SHA-256 ou SHA-3 (MessageDigest.getInstance('SHA-256'))"
+        "description": "MD5 est cryptographiquement cassé depuis 2004.",
+        "fix": "Utiliser SHA-256 (MessageDigest.getInstance('SHA-256'))"
     },
     {
         "id": "MASVS-CRYPTO-1-002",
@@ -21,8 +21,8 @@ RULES = [
         "masvs": "MASVS-CRYPTO-1",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/",
         "owasp_text": "L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées.",
-        "description": "SHA-1 est vulnérable aux attaques par collision depuis 2017 (SHAttered attack).",
-        "fix": "Utiliser SHA-256 minimum (MessageDigest.getInstance('SHA-256'))"
+        "description": "SHA-1 est vulnérable aux attaques par collision depuis 2017.",
+        "fix": "Utiliser SHA-256 minimum."
     },
     {
         "id": "MASVS-CRYPTO-1-003",
@@ -32,8 +32,8 @@ RULES = [
         "masvs": "MASVS-CRYPTO-1",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/",
         "owasp_text": "L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées.",
-        "description": "AES/ECB chiffre chaque bloc indépendamment, révélant les patterns des données.",
-        "fix": "Utiliser AES/GCM/NoPadding avec un IV aléatoire via SecureRandom"
+        "description": "AES/ECB révèle les patterns des données chiffrées.",
+        "fix": "Utiliser AES/GCM/NoPadding avec IV aléatoire."
     },
     {
         "id": "MASVS-CRYPTO-1-004",
@@ -43,8 +43,8 @@ RULES = [
         "masvs": "MASVS-CRYPTO-1",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/",
         "owasp_text": "L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées.",
-        "description": "Clé cryptographique définie en dur dans le code. Extractible par reverse engineering.",
-        "fix": "Utiliser Android Keystore System pour stocker et générer les clés"
+        "description": "Clé cryptographique définie en dur dans le code source.",
+        "fix": "Utiliser Android Keystore System."
     },
     {
         "id": "MASVS-CRYPTO-1-005",
@@ -54,8 +54,8 @@ RULES = [
         "masvs": "MASVS-CRYPTO-1",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/",
         "owasp_text": "L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées.",
-        "description": "java.util.Random est prédictible et non adapté aux usages cryptographiques.",
-        "fix": "Utiliser java.security.SecureRandom"
+        "description": "java.util.Random est prédictible.",
+        "fix": "Utiliser java.security.SecureRandom."
     },
     {
         "id": "MASVS-CRYPTO-2-001",
@@ -65,7 +65,7 @@ RULES = [
         "masvs": "MASVS-CRYPTO-2",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/",
         "owasp_text": "L'app utilise des implémentations éprouvées de primitives cryptographiques.",
-        "description": "Cipher.getInstance('AES') utilise le mode ECB par défaut selon le provider Android.",
+        "description": "Cipher.getInstance('AES') utilise ECB par défaut.",
         "fix": "Cipher.getInstance('AES/GCM/NoPadding')"
     },
     {
@@ -76,8 +76,8 @@ RULES = [
         "masvs": "MASVS-CRYPTO-2",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/",
         "owasp_text": "L'app utilise des implémentations éprouvées de primitives cryptographiques.",
-        "description": "DES utilise une clé 56-bit, cassable en quelques heures avec du matériel moderne.",
-        "fix": "Utiliser AES-256-GCM"
+        "description": "DES utilise une clé 56-bit, cassable en quelques heures.",
+        "fix": "Utiliser AES-256-GCM."
     },
     {
         "id": "MASVS-CRYPTO-2-003",
@@ -87,8 +87,8 @@ RULES = [
         "masvs": "MASVS-CRYPTO-2",
         "owasp_link": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/",
         "owasp_text": "L'app utilise des implémentations éprouvées de primitives cryptographiques.",
-        "description": "RC4 est cassé et interdit dans TLS depuis la RFC 7465.",
-        "fix": "Utiliser AES-GCM ou ChaCha20-Poly1305"
+        "description": "RC4 est cassé et interdit dans TLS.",
+        "fix": "Utiliser AES-GCM ou ChaCha20-Poly1305."
     },
 ]
 
@@ -117,12 +117,11 @@ def scan_file(file_path: Path) -> list:
         print(f"[!] Erreur lecture {file_path}: {e}")
     return findings
 
-
 def scan_all(files: list) -> list:
     all_findings = []
     for f in files:
+        print(f"[*] Scan : {f}")
         all_findings.extend(scan_file(Path(f)))
-
     seen = set()
     unique = []
     for f in all_findings:
@@ -130,6 +129,5 @@ def scan_all(files: list) -> list:
         if key not in seen:
             seen.add(key)
             unique.append(f)
-
     print(f"[+] {len(unique)} findings détectés (après déduplication)")
     return unique

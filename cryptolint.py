@@ -11,10 +11,8 @@ def main():
         prog="CryptoLint AI",
         description="Analyse cryptographique statique d'APK Android — Aligné OWASP MASVS"
     )
-    parser.add_argument("--apk", required=True, help="Chemin vers le fichier APK à analyser")
-    parser.add_argument("--output", default="output/rapport_cryptolint.html", help="Chemin du rapport HTML")
-    parser.add_argument("--no-ai", action="store_true", help="Désactiver l'analyse IA (plus rapide)")
-
+    parser.add_argument("--apk", required=True, help="Chemin vers le fichier APK")
+    parser.add_argument("--no-ai", action="store_true", help="Désactiver l'analyse IA")
     args = parser.parse_args()
 
     apk_path = Path(args.apk)
@@ -30,27 +28,18 @@ def main():
     """)
 
     print(f"[*] APK cible : {apk_path.name}")
-
-    # Étape 1 — Parser
     files = parse_apk(str(apk_path))
-
-    # Étape 2 — Scanner
     findings = scan_all(files)
 
     if not findings:
-        print("[+] Aucune vulnérabilité cryptographique détectée !")
+        print("[+] Aucune vulnérabilité détectée !")
         sys.exit(0)
 
-    # Étape 3 — Analyse IA
     if not args.no_ai:
         findings = analyze_all(findings)
-    else:
-        print("[*] Analyse IA désactivée (--no-ai)")
 
-    # Étape 4 — Rapport
     generate_report(findings, apk_path.name)
 
-    # Résumé final
     critiques = [f for f in findings if f['severity'] == 'critique']
     majeurs = [f for f in findings if f['severity'] == 'majeur']
 
@@ -63,7 +52,6 @@ def main():
 ║  📊 Total    : {str(len(findings)).ljust(25)}║
 ╚═══════════════════════════════════════╝
     """)
-    print(f"[+] Rapport disponible : {args.output}")
 
 if __name__ == "__main__":
     main()

@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>CryptoLint AI — Rapport MASVS</title>
+    <title>CryptoLint AI - Rapport MASVS</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #0d1117; color: #c9d1d9; padding: 40px; }
@@ -10,6 +11,9 @@
         .header h1 { font-size: 28px; color: #58a6ff; }
         .header h1 span { color: #a8ff78; }
         .meta { color: #8b949e; font-size: 13px; }
+        .header-right { text-align: right; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+        .btn-pdf { background: #58a6ff; color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; border: none; display: flex; align-items: center; gap: 8px; }
+        .btn-pdf:hover { background: #388bfd; }
         .cards { display: flex; gap: 16px; margin-bottom: 30px; }
         .card { flex: 1; padding: 20px; border-radius: 10px; text-align: center; }
         .card h2 { font-size: 42px; font-weight: 700; }
@@ -27,7 +31,6 @@
         tr:hover td { background: #161b22; }
         .badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; color: white; }
         .masvs-tag { background: #1f3a5f; color: #58a6ff; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap; text-decoration: none; }
-        .masvs-tag:hover { background: #2d4f7f; }
         .mono { font-family: 'Courier New', monospace; font-size: 11px; color: #f0883e; }
         .conformity-box { display: flex; gap: 16px; margin-bottom: 30px; }
         .conformity-card { flex: 1; padding: 16px 20px; border-radius: 10px; }
@@ -40,138 +43,123 @@
         .owasp-box p { color: #8b949e; font-size: 13px; line-height: 1.6; }
         .owasp-box a { color: #a8ff78; }
         footer { margin-top: 40px; text-align: center; color: #8b949e; font-size: 12px; border-top: 1px solid #21262d; padding-top: 20px; }
+        @media print { .btn-pdf { display: none; } }
     </style>
 </head>
 <body>
-
+    <div id="report-content">
     <div class="header">
         <div>
-            <h1>🔐 CryptoLint <span>AI</span></h1>
-            <p class="meta">Analyse cryptographique statique — Aligné OWASP MASVS/MASTG</p>
+            <h1>CryptoLint <span>AI</span></h1>
+            <p class="meta">Analyse cryptographique statique - Aligne OWASP MASVS/MASTG</p>
         </div>
-        <div style="text-align:right">
-            <p class="meta">APK : <strong style="color:#c9d1d9">UnCrackable-Level1.apk</strong></p>
-            <p class="meta">Généré le 11/05/2026 19:57</p>
+        <div class="header-right">
+            <p class="meta">APK : <strong style="color:#c9d1d9">Uncrackable-level2.apk</strong></p>
+            <p class="meta">Genere le 13/05/2026 15:50</p>
+            <button class="btn-pdf" onclick="downloadPDF()">Telecharger PDF</button>
         </div>
     </div>
-
     <div class="cards">
-        <div class="card rouge"><h2>3</h2><p>🔴 Critique</p></div>
-        <div class="card orange"><h2>1</h2><p>🟠 Majeur</p></div>
-        <div class="card bleu"><h2>4</h2><p>📊 Total findings</p></div>
+        <div class="card rouge"><h2>3</h2><p>Critique</p></div>
+        <div class="card orange"><h2>1</h2><p>Majeur</p></div>
+        <div class="card bleu"><h2>4</h2><p>Total findings</p></div>
     </div>
-
-    <div class="section-title">📋 Conformité OWASP MASVS</div>
+    <div class="section-title">Conformite OWASP MASVS</div>
     <div class="conformity-box">
         <div class="conformity-card" style="background:#1a1a2e; border: 1px solid #ff4444">
             <h3 style="color:#ff4444">MASVS-CRYPTO-1</h3>
-            <p>L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées.</p>
-            <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">→ Voir contrôle OWASP officiel</a><br><br>
+            <p>L'app n'utilise pas de primitives cryptographiques faibles ou depreciees.</p>
+            <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">Voir controle OWASP officiel</a><br><br>
             <span class="status" style="background:#ff444422; color:#ff4444; border: 1px solid #ff4444">
-                ÉCHOUÉ — 3 violation(s)
+                ECHOUE - 3 violation(s)
             </span>
         </div>
         <div class="conformity-card" style="background:#1a1a2e; border: 1px solid #ff4444">
             <h3 style="color:#ff4444">MASVS-CRYPTO-2</h3>
-            <p>L'app utilise des implémentations éprouvées de primitives cryptographiques.</p>
-            <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/" target="_blank">→ Voir contrôle OWASP officiel</a><br><br>
+            <p>L'app utilise des implementations eprouvees de primitives cryptographiques.</p>
+            <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/" target="_blank">Voir controle OWASP officiel</a><br><br>
             <span class="status" style="background:#ff444422; color:#ff4444; border: 1px solid #ff4444">
-                ÉCHOUÉ — 1 violation(s)
+                ECHOUE - 1 violation(s)
             </span>
         </div>
     </div>
-
     <div class="owasp-box">
-        <h3>📖 Référentiel OWASP utilisé</h3>
-        <p>
-            Les vulnérabilités sont mappées selon 
-            <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a> et 
-            <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/" target="_blank">MASVS-CRYPTO-2</a> 
-            du standard OWASP MASVS. Chaque finding cite le texte exact du contrôle OWASP violé.
-            Les corrections sont générées par IA (LLaMA 3.3 70B) basées sur les recommandations MASTG officielles.
-        </p>
+        <h3>Referentiel OWASP utilise</h3>
+        <p>Les vulnerabilites sont mappees selon <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a> et <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/" target="_blank">MASVS-CRYPTO-2</a> du standard OWASP MASVS. Les corrections sont generees par IA (LLaMA 3.3 70B) basees sur les recommandations MASTG officielles.</p>
     </div>
-
-    <div class="section-title">🔍 Findings détectés</div>
+    <div class="section-title">Findings detectes</div>
     <div style="overflow-x:auto">
     <table>
         <tr>
-            <th>Sévérité</th>
-            <th>Contrôle OWASP</th>
-            <th>Vulnérabilité</th>
-            <th>Fichier</th>
-            <th>Ligne</th>
-            <th>Code vulnérable</th>
-            <th>Explication IA</th>
-            <th>Impact</th>
-            <th>Correctif IA</th>
+            <th>Severite</th><th>Controle OWASP</th><th>Vulnerabilite</th>
+            <th>Fichier</th><th>Ligne</th><th>Code vulnerable</th>
+            <th>Explication IA</th><th>Impact</th><th>Correctif IA</th>
         </tr>
         
         <tr>
             <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
             <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
-            <td>
-                <strong>AES/ECB — Mode non sécurisé</strong><br>
-                <small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small>
-            </td>
+            <td><strong>AES/ECB — Mode non sécurisé</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">14</td>
             <td class="mono">SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, "AES/ECB/PKCS7Padding");</td>
-            <td>La vulnérabilité détectée est liée à l'utilisation du mode ECB (Electronic Codebook) pour le chiffrement AES. Ce mode chiffre chaque bloc de données indépendamment, ce qui peut révéler les patterns des données et permettre à un attaquant de déduire des informations sensibles. Le mode ECB ne fournit pas de confidentialité et est considéré comme non sécurisé.</td>
-            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait être en mesure de déduire des informations sensibles sur les données chiffrées, telles que des clés de chiffrement, des mots de passe ou d'autres données confidentielles. Cela pourrait avoir des conséquences graves, notamment la compromission de la sécurité des données et la perte de confidentialité.</td>
-            <td class="mono" style="color:#a8ff78">&nbsp;import&nbsp;javax.crypto.Cipher;&nbsp;import&nbsp;javax.crypto.KeyGenerator;&nbsp;import&nbsp;javax.crypto.SecretKey;&nbsp;import&nbsp;javax.crypto.spec.GCMParameterSpec;&nbsp;import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;import&nbsp;java.security.SecureRandom;&nbsp;import&nbsp;java.util.Base64;&nbsp;&nbsp;public&nbsp;class&nbsp;ChiffrementAES&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;chiffrer(byte[]&nbsp;donnees,&nbsp;byte[]&nbsp;cle)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Générer&nbsp;un&nbsp;IV&nbsp;aléatoire&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecureRandom&nbsp;secureRandom&nbsp;=&nbsp;new&nbsp;SecureRandom();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[12];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;secureRandom.nextBytes(iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Créer&nbsp;un&nbsp;objet&nbsp;Cipher&nbsp;avec&nbsp;le&nbsp;mode&nbsp;AES/GCM/NoPadding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(cle,&nbsp;"AES");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Chiffrer&nbsp;les&nbsp;données&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;donneesChiffrees&nbsp;=&nbsp;cipher.doFinal(donnees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Concaténer&nbsp;l'IV&nbsp;et&nbsp;les&nbsp;données&nbsp;chiffrées&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;resultat&nbsp;=&nbsp;new&nbsp;byte[iv.length&nbsp;+&nbsp;donneesChiffrees.length];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(iv,&nbsp;0,&nbsp;resultat,&nbsp;0,&nbsp;iv.length);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(donneesChiffrees,&nbsp;0,&nbsp;resultat,&nbsp;iv.length,&nbsp;donneesChiffrees.length);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;resultat;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;dechiffrer(byte[]&nbsp;donneesChiffrees,&nbsp;byte[]&nbsp;cle)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Extraire&nbsp;l'IV&nbsp;et&nbsp;les&nbsp;données&nbsp;chiffrées&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[12];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(donneesChiffrees,&nbsp;0,&nbsp;iv,&nbsp;0,&nbsp;iv.length);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;donneesChiffreesSeules&nbsp;=&nbsp;new&nbsp;byte[donneesChiffrees.length&nbsp;-&nbsp;iv.length];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(donneesChiffrees,&nbsp;iv.length,&nbsp;donneesChiffreesSeules,&nbsp;0,&nbsp;donneesChiffrees.length&nbsp;-&nbsp;iv.length);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Créer&nbsp;un&nbsp;objet&nbsp;Cipher&nbsp;avec&nbsp;le&nbsp;mode&nbsp;AES/GCM/NoPadding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(cle,&nbsp;"AES");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.DECRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Déchiffrer&nbsp;les&nbsp;données&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;cipher.doFinal(donneesChiffreesSeules);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;}</td>
+            <td>L'utilisation de "AES/ECB/PKCS7Padding" est considérée comme faible et dépréciée car le mode ECB (Electronic Codebook) ne fournit pas de confidentialité et le padding PKCS#7 peut être vulnérable à des attaques de padding oracle. Il est recommandé d'utiliser le mode GCM (Galois/Counter Mode) qui fournit à la fois la confidentialité et l'authenticité des données.</td>
+            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait potentiellement déchiffrer les données chiffrées ou même injecter des données malveillantes dans le système, ce qui pourrait avoir des conséquences graves sur la sécurité et la confidentialité des données de l'application.</td>
+            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;vous&nbsp;pouvez&nbsp;utiliser&nbsp;le&nbsp;code&nbsp;suivant&nbsp;en&nbsp;Java&nbsp;Android&nbsp;:&nbsp;<br><br>//&nbsp;Générer&nbsp;un&nbsp;IV&nbsp;aléatoire<br>SecureRandom&nbsp;secureRandom&nbsp;=&nbsp;new&nbsp;SecureRandom();<br>byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[12];<br>secureRandom.nextBytes(iv);<br><br>//&nbsp;Utiliser&nbsp;AES/GCM/NoPadding&nbsp;avec&nbsp;IV&nbsp;aléatoire<br>SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(bArr,&nbsp;"AES");<br>GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);<br>Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");<br>cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);<br>byte[]&nbsp;encryptedData&nbsp;=&nbsp;cipher.doFinal(dataToEncrypt);<br><br>//&nbsp;Enregistrer&nbsp;l'IV&nbsp;avec&nbsp;les&nbsp;données&nbsp;chiffrées&nbsp;pour&nbsp;le&nbsp;déchiffrement&nbsp;ultérieur</td>
         </tr>
         <tr>
             <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
             <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
-            <td>
-                <strong>Clé cryptographique hardcodée</strong><br>
-                <small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small>
-            </td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">7</td>
             <td class="mono">import javax.crypto.spec.SecretKeySpec;</td>
-            <td>La vulnérabilité détectée correspond à une clé cryptographique hardcodée dans le code Android, ce qui signifie que la clé est définie en dur et intégrée directement dans le code source. Cela représente un risque important car un attaquant peut extraire cette clé par reverse engineering, permettant ainsi l'accès non autorisé aux données chiffrées ou la possibilité de falsifier les données. Selon le standard MASVS/MASTG officiel OWASP, spécifiquement la règle MASVS-CRYPTO-1, il est recommandé d'éviter de hardcoder les clés cryptographiques et d'utiliser à la place des méthodes sécurisées pour générer, stocker et gérer les clés.</td>
-            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait accéder à des données sensibles chiffrées, les modifier ou les supprimer, ce qui pourrait avoir des conséquences graves pour la confidentialité et l'intégrité des données des utilisateurs. De plus, cela pourrait entraîner des problèmes de conformité aux réglementations de protection des données.</td>
-            <td class="mono" style="color:#a8ff78">&nbsp;import&nbsp;android.security.keystore.KeyGenParameterSpec;&nbsp;import&nbsp;android.security.keystore.KeyProperties;&nbsp;import&nbsp;android.util.Base64;&nbsp;import&nbsp;javax.crypto.Cipher;&nbsp;import&nbsp;javax.crypto.KeyGenerator;&nbsp;import&nbsp;javax.crypto.SecretKey;&nbsp;import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;import&nbsp;java.security.KeyStore;&nbsp;&nbsp;public&nbsp;class&nbsp;CryptoManager&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;ALIAS&nbsp;=&nbsp;"ma_cle_secrete";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;TRANSFORMATION&nbsp;=&nbsp;"AES/GCM/NoPadding";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;KeyStore&nbsp;keyStore;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;CryptoManager()&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyStore&nbsp;=&nbsp;KeyStore.getInstance("AndroidKeyStore");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyStore.load(null);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;void&nbsp;genererEtStockerCle()&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyGenParameterSpec&nbsp;spec&nbsp;=&nbsp;new&nbsp;KeyGenParameterSpec.Builder(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALIAS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyProperties.PURPOSE_ENCRYPT&nbsp;|&nbsp;KeyProperties.PURPOSE_DECRYPT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setBlockModes(KeyProperties.BLOCK_MODE_GCM)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyGenerator&nbsp;keyGen&nbsp;=&nbsp;KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,&nbsp;"AndroidKeyStore");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyGen.init(spec);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyGen.generateKey();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;SecretKey&nbsp;obtenirCle()&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(SecretKey)&nbsp;keyStore.getKey(ALIAS,&nbsp;null);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;byte[]&nbsp;chiffrer(byte[]&nbsp;donnees)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKey&nbsp;cle&nbsp;=&nbsp;obtenirCle();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance(TRANSFORMATION);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;cle);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;cipher.doFinal(donnees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;byte[]&nbsp;dechiffrer(byte[]&nbsp;donneesChiffrees)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKey&nbsp;cle&nbsp;=&nbsp;obtenirCle();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance(TRANSFORMATION);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.DECRYPT_MODE,&nbsp;cle);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;cipher.doFinal(donneesChiffrees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;}</td>
+            <td>La vulnérabilité MASVS-CRYPTO-1 concerne l'utilisation de primitives cryptographiques faibles ou dépréciées. Dans le code vulnérable, l'importation de `javax.crypto.spec.SecretKeySpec` peut indiquer l'utilisation de clés secrètes statiques ou faibles pour les opérations cryptographiques. Cela peut être exploité par des attaquants pour compromettre la sécurité des données de l'application.</td>
+            <td>Si cette vulnérabilité est exploitée, les attaquants pourraient accéder à des données sensibles, telles que des informations d'authentification ou des données confidentielles, en raison de l'utilisation de primitives cryptographiques faibles ou dépréciées. Cela pourrait entraîner des conséquences graves, notamment des pertes financières, des atteintes à la réputation et des problèmes de confidentialité.</td>
+            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;il&nbsp;est&nbsp;recommandé&nbsp;d'utiliser&nbsp;le&nbsp;système&nbsp;de&nbsp;keystore&nbsp;d'Android,&nbsp;qui&nbsp;fournit&nbsp;une&nbsp;manière&nbsp;sécurisée&nbsp;de&nbsp;stocker&nbsp;et&nbsp;de&nbsp;gérer&nbsp;les&nbsp;clés&nbsp;cryptographiques.&nbsp;Voici&nbsp;un&nbsp;exemple&nbsp;de&nbsp;code&nbsp;Java&nbsp;Android&nbsp;corrigé&nbsp;et&nbsp;complet&nbsp;qui&nbsp;utilise&nbsp;le&nbsp;système&nbsp;de&nbsp;keystore&nbsp;d'Android&nbsp;:&nbsp;java&nbsp;import&nbsp;android.security.keystore.KeyGenParameterSpec;&nbsp;import&nbsp;android.security.keystore.KeyProperties;&nbsp;import&nbsp;java.security.Key;&nbsp;import&nbsp;java.security.KeyStore;&nbsp;import&nbsp;javax.crypto.Cipher;&nbsp;import&nbsp;javax.crypto.KeyGenerator;&nbsp;import&nbsp;javax.crypto.SecretKey;&nbsp;import&nbsp;javax.crypto.spec.GCMParameterSpec;&nbsp;import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;&nbsp;//&nbsp;Générer&nbsp;une&nbsp;clé&nbsp;secrète&nbsp;à&nbsp;l'aide&nbsp;du&nbsp;système&nbsp;de&nbsp;keystore&nbsp;d'Android&nbsp;KeyGenParameterSpec&nbsp;spec&nbsp;=&nbsp;new&nbsp;KeyGenParameterSpec.Builder(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"alias",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyProperties.PURPOSE_ENCRYPT&nbsp;|&nbsp;KeyProperties.PURPOSE_DECRYPT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setBlockModes(KeyProperties.BLOCK_MODE_GCM)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build();&nbsp;&nbsp;KeyGenerator&nbsp;keyGen&nbsp;=&nbsp;KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,&nbsp;"AndroidKeyStore");&nbsp;keyGen.init(spec);&nbsp;SecretKey&nbsp;secretKey&nbsp;=&nbsp;keyGen.generateKey();&nbsp;&nbsp;//&nbsp;Utiliser&nbsp;la&nbsp;clé&nbsp;secrète&nbsp;pour&nbsp;les&nbsp;opérations&nbsp;cryptographiques&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKey);&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;cipher.getIV();&nbsp;GCMParameterSpec&nbsp;paramSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKey,&nbsp;paramSpec);&nbsp;byte[]&nbsp;encryptedData&nbsp;=&nbsp;cipher.doFinal("Données&nbsp;à&nbsp;chiffrer".getBytes());&nbsp;</td>
         </tr>
         <tr>
             <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
             <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
-            <td>
-                <strong>Clé cryptographique hardcodée</strong><br>
-                <small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small>
-            </td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">14</td>
             <td class="mono">SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, "AES/ECB/PKCS7Padding");</td>
-            <td>La vulnérabilité détectée correspond à la règle MASVS-CRYPTO-1, qui stipule que les clés cryptographiques ne doivent pas être hardcodées dans le code. Dans ce cas, la clé cryptographique est définie en dur dans le code, ce qui signifie qu'elle peut être extraite par reverse engineering. Cela représente un risque important pour la sécurité de l'application, car un attaquant pourrait utiliser cette clé pour accéder à des données sensibles ou pour effectuer des opérations malveillantes.</td>
-            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait accéder à des données sensibles, telles que des informations d'identification ou des données financières, et les utiliser pour effectuer des opérations malveillantes. Cela pourrait entraîner des conséquences graves, telles que des pertes financières, des atteintes à la réputation ou des problèmes de confidentialité.</td>
-            <td class="mono" style="color:#a8ff78">&nbsp;import&nbsp;android.security.keystore.KeyGenParameterSpec;&nbsp;import&nbsp;android.security.keystore.KeyProperties;&nbsp;import&nbsp;android.util.Base64;&nbsp;import&nbsp;javax.crypto.Cipher;&nbsp;import&nbsp;javax.crypto.KeyGenerator;&nbsp;import&nbsp;javax.crypto.SecretKey;&nbsp;import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;import&nbsp;java.security.KeyStore;&nbsp;&nbsp;public&nbsp;class&nbsp;CryptoUtils&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;ALIAS&nbsp;=&nbsp;"ma_cle_secrete";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;String&nbsp;TRANSFORMATION&nbsp;=&nbsp;"AES/ECB/PKCS7Padding";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;void&nbsp;genererCle()&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyStore&nbsp;keyStore&nbsp;=&nbsp;KeyStore.getInstance("AndroidKeyStore");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyStore.load(null);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!keyStore.containsAlias(ALIAS))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyGenParameterSpec&nbsp;spec&nbsp;=&nbsp;new&nbsp;KeyGenParameterSpec.Builder(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALIAS,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyProperties.PURPOSE_ENCRYPT&nbsp;|&nbsp;KeyProperties.PURPOSE_DECRYPT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setBlockModes(KeyProperties.BLOCK_MODE_ECB)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyGenerator&nbsp;keyGenerator&nbsp;=&nbsp;KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,&nbsp;"AndroidKeyStore");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyGenerator.init(spec);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyGenerator.generateKey();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;SecretKeySpec&nbsp;getCle()&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyStore&nbsp;keyStore&nbsp;=&nbsp;KeyStore.getInstance("AndroidKeyStore");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keyStore.load(null);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(keyStore.containsAlias(ALIAS))&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(SecretKeySpec)&nbsp;keyStore.getKey(ALIAS,&nbsp;null);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;else&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;new&nbsp;Exception("Clé&nbsp;non&nbsp;générée");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;chiffrer(byte[]&nbsp;donnees)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;cle&nbsp;=&nbsp;getCle();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance(TRANSFORMATION);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;cle);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;cipher.doFinal(donnees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;dechiffrer(byte[]&nbsp;donnees)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;cle&nbsp;=&nbsp;getCle();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance(TRANSFORMATION);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.DECRYPT_MODE,&nbsp;cle);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;cipher.doFinal(donnees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;}&nbsp;</td>
+            <td>L'utilisation de primitives cryptographiques faibles ou dépréciées, telles que "AES/ECB/PKCS7Padding", peut rendre l'application vulnérable aux attaques cryptographiques. Le mode ECB (Electronic Codebook) est considéré comme faible car il ne fournit pas de confidentialité et peut être vulnérable aux attaques par analyse de fréquences. De plus, le padding PKCS#7 n'est pas recommandé pour les nouvelles applications. L'utilisation de l'Android Keystore System est recommandée pour stocker et gérer les clés cryptographiques de manière sécurisée.</td>
+            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait potentiellement déchiffrer les données chiffrées, ce qui pourrait entraîner des conséquences graves telles que la fuite de données sensibles ou la perte de confidentialité.</td>
+            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;vous&nbsp;pouvez&nbsp;utiliser&nbsp;l'Android&nbsp;Keystore&nbsp;System&nbsp;pour&nbsp;générer&nbsp;et&nbsp;stocker&nbsp;les&nbsp;clés&nbsp;cryptographiques&nbsp;de&nbsp;manière&nbsp;sécurisée.&nbsp;Voici&nbsp;un&nbsp;exemple&nbsp;de&nbsp;code&nbsp;Java&nbsp;Android&nbsp;qui&nbsp;utilise&nbsp;l'Android&nbsp;Keystore&nbsp;System&nbsp;pour&nbsp;chiffrer&nbsp;et&nbsp;déchiffrer&nbsp;des&nbsp;données&nbsp;:&nbsp;<br><br>//&nbsp;Générer&nbsp;une&nbsp;clé&nbsp;cryptographique<br>KeyGenParameterSpec&nbsp;spec&nbsp;=&nbsp;new&nbsp;KeyGenParameterSpec.Builder("alias",&nbsp;KeyProperties.PURPOSE_ENCRYPT&nbsp;|&nbsp;KeyProperties.PURPOSE_DECRYPT)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setBlockModes(KeyProperties.BLOCK_MODE_GCM)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build();<br>KeyGenerator&nbsp;keyGen&nbsp;=&nbsp;KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,&nbsp;"AndroidKeyStore");<br>keyGen.init(spec);<br>SecretKey&nbsp;secretKey&nbsp;=&nbsp;keyGen.generateKey();<br><br>//&nbsp;Chiffrer&nbsp;des&nbsp;données<br>Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");<br>cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKey);<br>byte[]&nbsp;encryptedData&nbsp;=&nbsp;cipher.doFinal(data);<br><br>//&nbsp;Déchiffrer&nbsp;des&nbsp;données<br>cipher.init(Cipher.DECRYPT_MODE,&nbsp;secretKey);<br>byte[]&nbsp;decryptedData&nbsp;=&nbsp;cipher.doFinal(encryptedData);</td>
         </tr>
         <tr>
             <td><span class="badge" style="background:#ff8800">MAJEUR</span></td>
             <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-2/" target="_blank">MASVS-CRYPTO-2</a></td>
-            <td>
-                <strong>Cipher sans mode spécifié</strong><br>
-                <small style="color:#8b949e;font-style:italic">"L'app utilise des implémentations éprouvées de primitives cryptographiques."</small>
-            </td>
+            <td><strong>Cipher sans mode spécifié</strong><br><small style="color:#8b949e;font-style:italic">"L'app utilise des implémentations éprouvées de primitives cryptographiques."</small></td>
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">15</td>
             <td class="mono">Cipher cipher = Cipher.getInstance("AES");</td>
-            <td>La vulnérabilité détectée concerne l'utilisation de l'algorithme de chiffrement AES sans spécifier de mode. Par défaut, le fournisseur Android utilise le mode ECB (Electronic Codebook), qui est considéré comme non sécurisé car il peut permettre à un attaquant de déduire des informations sur les données chiffrées. Le mode ECB chiffe chaque bloc de données de manière indépendante, ce qui signifie que les mêmes données en clair seront toujours chiffrées de la même manière, facilitant ainsi les attaques par analyse de fréquences.</td>
-            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait potentiellement déchiffrer les données sensibles ou même injecter de fausses données dans le système, menaçant ainsi la confidentialité et l'intégrité des informations traitées par l'application Android.</td>
-            <td class="mono" style="color:#a8ff78">&nbsp;import&nbsp;javax.crypto.Cipher;&nbsp;import&nbsp;javax.crypto.spec.GCMParameterSpec;&nbsp;import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;import&nbsp;java.nio.ByteBuffer;&nbsp;import&nbsp;java.security.SecureRandom;&nbsp;&nbsp;public&nbsp;class&nbsp;ChiffrementAES&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;int&nbsp;TAILLE_CLE&nbsp;=&nbsp;128;&nbsp;//&nbsp;128&nbsp;bits&nbsp;pour&nbsp;AES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;int&nbsp;TAILLE_IV&nbsp;=&nbsp;12;&nbsp;//&nbsp;Taille&nbsp;de&nbsp;l'IV&nbsp;pour&nbsp;GCM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;static&nbsp;final&nbsp;int&nbsp;TAILLE_TAG&nbsp;=&nbsp;128;&nbsp;//&nbsp;Taille&nbsp;du&nbsp;tag&nbsp;d'authentification&nbsp;pour&nbsp;GCM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;chiffrer(byte[]&nbsp;donnees,&nbsp;byte[]&nbsp;cle)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Génération&nbsp;d'un&nbsp;vecteur&nbsp;d'initialisation&nbsp;(IV)&nbsp;aléatoire&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecureRandom&nbsp;secureRandom&nbsp;=&nbsp;new&nbsp;SecureRandom();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[TAILLE_IV];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;secureRandom.nextBytes(iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Création&nbsp;d'un&nbsp;objet&nbsp;Cipher&nbsp;avec&nbsp;le&nbsp;mode&nbsp;GCM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(cle,&nbsp;"AES");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(TAILLE_TAG,&nbsp;iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Chiffrement&nbsp;des&nbsp;données&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;donneesChiffrees&nbsp;=&nbsp;cipher.doFinal(donnees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Construction&nbsp;du&nbsp;message&nbsp;chiffré&nbsp;complet&nbsp;(IV&nbsp;+&nbsp;données&nbsp;chiffrées)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteBuffer&nbsp;byteBuffer&nbsp;=&nbsp;ByteBuffer.allocate(iv.length&nbsp;+&nbsp;donneesChiffrees.length);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byteBuffer.put(iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byteBuffer.put(donneesChiffrees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;byteBuffer.array();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;dechiffrer(byte[]&nbsp;donneesChiffrees,&nbsp;byte[]&nbsp;cle)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Extraction&nbsp;de&nbsp;l'IV&nbsp;et&nbsp;des&nbsp;données&nbsp;chiffrées&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ByteBuffer&nbsp;byteBuffer&nbsp;=&nbsp;ByteBuffer.wrap(donneesChiffrees);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[TAILLE_IV];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byteBuffer.get(iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;donneesChiffreesSeules&nbsp;=&nbsp;new&nbsp;byte[donneesChiffrees.length&nbsp;-&nbsp;TAILLE_IV];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byteBuffer.get(donneesChiffreesSeules);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Création&nbsp;d'un&nbsp;objet&nbsp;Cipher&nbsp;avec&nbsp;le&nbsp;mode&nbsp;GCM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(cle,&nbsp;"AES");&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(TAILLE_TAG,&nbsp;iv);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.DECRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Déchiffrement&nbsp;des&nbsp;données&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;cipher.doFinal(donneesChiffreesSeules);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;}</td>
+            <td>La vulnérabilité se situe dans l'utilisation de l'algorithme de chiffrement AES sans spécifier le mode de chiffrement et le type de padding. L'utilisation de Cipher.getInstance("AES") peut conduire à l'utilisation d'un mode de chiffrement ECB (Electronic Codebook) par défaut, qui est considéré comme non sécurisé. De plus, le type de padding n'est pas spécifié, ce qui peut entraîner des problèmes de sécurité tels que les attaques par padding oracle.</td>
+            <td>Si cette vulnérabilité est exploitée, un attaquant peut être en mesure de déchiffrer les données sensibles chiffrées par l'application, ce qui peut avoir des conséquences graves telles que la fuite de données confidentielles ou la compromission de la sécurité des utilisateurs.</td>
+            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;il&nbsp;est&nbsp;recommandé&nbsp;d'utiliser&nbsp;une&nbsp;implémentation&nbsp;éprouvée&nbsp;de&nbsp;primitives&nbsp;cryptographiques,&nbsp;telle&nbsp;que&nbsp;Cipher.getInstance("AES/GCM/NoPadding").&nbsp;Cela&nbsp;spécifie&nbsp;l'utilisation&nbsp;de&nbsp;l'algorithme&nbsp;de&nbsp;chiffrement&nbsp;AES&nbsp;avec&nbsp;le&nbsp;mode&nbsp;de&nbsp;chiffrement&nbsp;GCM&nbsp;(Galois/Counter&nbsp;Mode)&nbsp;et&nbsp;le&nbsp;type&nbsp;de&nbsp;padding&nbsp;NoPadding,&nbsp;qui&nbsp;est&nbsp;considéré&nbsp;comme&nbsp;sécurisé.&nbsp;Voici&nbsp;un&nbsp;exemple&nbsp;de&nbsp;code&nbsp;Java&nbsp;Android&nbsp;corrigé&nbsp;:&nbsp;<br><br>import&nbsp;javax.crypto.Cipher;&nbsp;<br>import&nbsp;javax.crypto.spec.GCMParameterSpec;&nbsp;<br>import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;<br>import&nbsp;java.security.SecureRandom;&nbsp;<br><br>public&nbsp;class&nbsp;Crypto&nbsp;{&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;encrypt(byte[]&nbsp;plaintext,&nbsp;byte[]&nbsp;key)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Générer&nbsp;un&nbsp;vecteur&nbsp;d'initialisation&nbsp;aléatoire&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecureRandom&nbsp;random&nbsp;=&nbsp;new&nbsp;SecureRandom();&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[12];&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;random.nextBytes(iv);&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Créer&nbsp;une&nbsp;clé&nbsp;secrète&nbsp;à&nbsp;partir&nbsp;de&nbsp;la&nbsp;clé&nbsp;fournie&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(key,&nbsp;"AES");&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Créer&nbsp;un&nbsp;objet&nbsp;Cipher&nbsp;avec&nbsp;l'algorithme&nbsp;AES/GCM/NoPadding&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Initialiser&nbsp;le&nbsp;Cipher&nbsp;pour&nbsp;le&nbsp;chiffrement&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Chiffrer&nbsp;les&nbsp;données&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;ciphertext&nbsp;=&nbsp;cipher.doFinal(plaintext);&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Retourner&nbsp;le&nbsp;vecteur&nbsp;d'initialisation&nbsp;et&nbsp;les&nbsp;données&nbsp;chiffrées&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;result&nbsp;=&nbsp;new&nbsp;byte[iv.length&nbsp;+&nbsp;ciphertext.length];&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(iv,&nbsp;0,&nbsp;result,&nbsp;0,&nbsp;iv.length);&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(ciphertext,&nbsp;0,&nbsp;result,&nbsp;iv.length,&nbsp;ciphertext.length);&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;result;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<br>}</td>
         </tr>
     </table>
     </div>
+    <footer>CryptoLint AI v0.1.0 - OWASP MASVS / MASTG - Analyse IA par LLaMA 3.3 70B (Groq API)</footer>
+    </div>
 
-    <footer>
-        CryptoLint AI v0.1.0 — 
-        <a href="https://mas.owasp.org/MASVS/" style="color:#58a6ff">OWASP MASVS</a> / 
-        <a href="https://mas.owasp.org/MASTG/" style="color:#58a6ff">MASTG</a> — 
-        Analyse IA par LLaMA 3.3 70B (Groq API)
-    </footer>
-
+    <script>
+    function downloadPDF() {
+        var btn = document.querySelector('.btn-pdf');
+        btn.style.display = 'none';
+        var opt = {
+            margin: 10,
+            filename: 'rapport_cryptolint.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+        html2pdf().set(opt).from(document.getElementById('report-content')).save().then(function() {
+            btn.style.display = 'flex';
+        });
+    }
+    </script>
 </body>
 </html>
