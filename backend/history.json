@@ -1,0 +1,46 @@
+[
+  {
+    "job_id": "33869a7a",
+    "apk_name": "33869a7a_UnCrackable-Level2.apk",
+    "summary": {
+      "total": 0,
+      "critique": 0,
+      "majeur": 0,
+      "score": 100
+    },
+    "scanned_at": "2026-05-17T01:28:54.877796"
+  },
+  {
+    "id": "74d902ad",
+    "apk_name": "UnCrackable-Level2.apk",
+    "date": "17/05/2026 01:01",
+    "total": 0,
+    "critiques": 0,
+    "majeurs": 0
+  },
+  {
+    "id": "90957707",
+    "apk_name": "UnCrackable-Level2.apk",
+    "date": "17/05/2026 00:37",
+    "total": 0,
+    "critiques": 0,
+    "majeurs": 0
+  },
+  {
+    "id": "82e309cf",
+    "apk_name": "UnCrackable-Level2.apk",
+    "date": "17/05/2026 00:18",
+    "total": 25,
+    "critiques": 21,
+    "majeurs": 4
+  },
+  {
+    "id": "9f481972",
+    "apk_name": "UnCrackable-Level2.apk",
+    "date": "16/05/2026 23:35",
+    "total": 4,
+    "critiques": 3,
+    "majeurs": 1,
+    "rapport_path": "backend\\uploads\\9f481972\\rapport.html"
+  }
+]

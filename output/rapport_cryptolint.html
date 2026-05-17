@@ -54,15 +54,15 @@
             <p class="meta">Analyse cryptographique statique - Aligne OWASP MASVS/MASTG</p>
         </div>
         <div class="header-right">
-            <p class="meta">APK : <strong style="color:#c9d1d9">Uncrackable-level2.apk</strong></p>
-            <p class="meta">Genere le 13/05/2026 15:50</p>
+            <p class="meta">APK : <strong style="color:#c9d1d9">diva.apk</strong></p>
+            <p class="meta">Genere le 17/05/2026 00:10</p>
             <button class="btn-pdf" onclick="downloadPDF()">Telecharger PDF</button>
         </div>
     </div>
     <div class="cards">
-        <div class="card rouge"><h2>3</h2><p>Critique</p></div>
-        <div class="card orange"><h2>1</h2><p>Majeur</p></div>
-        <div class="card bleu"><h2>4</h2><p>Total findings</p></div>
+        <div class="card rouge"><h2>21</h2><p>Critique</p></div>
+        <div class="card orange"><h2>4</h2><p>Majeur</p></div>
+        <div class="card bleu"><h2>25</h2><p>Total findings</p></div>
     </div>
     <div class="section-title">Conformite OWASP MASVS</div>
     <div class="conformity-box">
@@ -71,7 +71,7 @@
             <p>L'app n'utilise pas de primitives cryptographiques faibles ou depreciees.</p>
             <a href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">Voir controle OWASP officiel</a><br><br>
             <span class="status" style="background:#ff444422; color:#ff4444; border: 1px solid #ff4444">
-                ECHOUE - 3 violation(s)
+                ECHOUE - 24 violation(s)
             </span>
         </div>
         <div class="conformity-card" style="background:#1a1a2e; border: 1px solid #ff4444">
@@ -103,9 +103,9 @@
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">14</td>
             <td class="mono">SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, "AES/ECB/PKCS7Padding");</td>
-            <td>L'utilisation de "AES/ECB/PKCS7Padding" est considérée comme faible et dépréciée car le mode ECB (Electronic Codebook) ne fournit pas de confidentialité et le padding PKCS#7 peut être vulnérable à des attaques de padding oracle. Il est recommandé d'utiliser le mode GCM (Galois/Counter Mode) qui fournit à la fois la confidentialité et l'authenticité des données.</td>
-            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait potentiellement déchiffrer les données chiffrées ou même injecter des données malveillantes dans le système, ce qui pourrait avoir des conséquences graves sur la sécurité et la confidentialité des données de l'application.</td>
-            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;vous&nbsp;pouvez&nbsp;utiliser&nbsp;le&nbsp;code&nbsp;suivant&nbsp;en&nbsp;Java&nbsp;Android&nbsp;:&nbsp;<br><br>//&nbsp;Générer&nbsp;un&nbsp;IV&nbsp;aléatoire<br>SecureRandom&nbsp;secureRandom&nbsp;=&nbsp;new&nbsp;SecureRandom();<br>byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[12];<br>secureRandom.nextBytes(iv);<br><br>//&nbsp;Utiliser&nbsp;AES/GCM/NoPadding&nbsp;avec&nbsp;IV&nbsp;aléatoire<br>SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(bArr,&nbsp;"AES");<br>GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);<br>Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");<br>cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);<br>byte[]&nbsp;encryptedData&nbsp;=&nbsp;cipher.doFinal(dataToEncrypt);<br><br>//&nbsp;Enregistrer&nbsp;l'IV&nbsp;avec&nbsp;les&nbsp;données&nbsp;chiffrées&nbsp;pour&nbsp;le&nbsp;déchiffrement&nbsp;ultérieur</td>
+            <td>AES/ECB révèle les patterns des données chiffrées.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;AES/GCM/NoPadding&nbsp;avec&nbsp;IV&nbsp;aléatoire.</td>
         </tr>
         <tr>
             <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
@@ -114,9 +114,9 @@
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">7</td>
             <td class="mono">import javax.crypto.spec.SecretKeySpec;</td>
-            <td>La vulnérabilité MASVS-CRYPTO-1 concerne l'utilisation de primitives cryptographiques faibles ou dépréciées. Dans le code vulnérable, l'importation de `javax.crypto.spec.SecretKeySpec` peut indiquer l'utilisation de clés secrètes statiques ou faibles pour les opérations cryptographiques. Cela peut être exploité par des attaquants pour compromettre la sécurité des données de l'application.</td>
-            <td>Si cette vulnérabilité est exploitée, les attaquants pourraient accéder à des données sensibles, telles que des informations d'authentification ou des données confidentielles, en raison de l'utilisation de primitives cryptographiques faibles ou dépréciées. Cela pourrait entraîner des conséquences graves, notamment des pertes financières, des atteintes à la réputation et des problèmes de confidentialité.</td>
-            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;il&nbsp;est&nbsp;recommandé&nbsp;d'utiliser&nbsp;le&nbsp;système&nbsp;de&nbsp;keystore&nbsp;d'Android,&nbsp;qui&nbsp;fournit&nbsp;une&nbsp;manière&nbsp;sécurisée&nbsp;de&nbsp;stocker&nbsp;et&nbsp;de&nbsp;gérer&nbsp;les&nbsp;clés&nbsp;cryptographiques.&nbsp;Voici&nbsp;un&nbsp;exemple&nbsp;de&nbsp;code&nbsp;Java&nbsp;Android&nbsp;corrigé&nbsp;et&nbsp;complet&nbsp;qui&nbsp;utilise&nbsp;le&nbsp;système&nbsp;de&nbsp;keystore&nbsp;d'Android&nbsp;:&nbsp;java&nbsp;import&nbsp;android.security.keystore.KeyGenParameterSpec;&nbsp;import&nbsp;android.security.keystore.KeyProperties;&nbsp;import&nbsp;java.security.Key;&nbsp;import&nbsp;java.security.KeyStore;&nbsp;import&nbsp;javax.crypto.Cipher;&nbsp;import&nbsp;javax.crypto.KeyGenerator;&nbsp;import&nbsp;javax.crypto.SecretKey;&nbsp;import&nbsp;javax.crypto.spec.GCMParameterSpec;&nbsp;import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;&nbsp;//&nbsp;Générer&nbsp;une&nbsp;clé&nbsp;secrète&nbsp;à&nbsp;l'aide&nbsp;du&nbsp;système&nbsp;de&nbsp;keystore&nbsp;d'Android&nbsp;KeyGenParameterSpec&nbsp;spec&nbsp;=&nbsp;new&nbsp;KeyGenParameterSpec.Builder(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"alias",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KeyProperties.PURPOSE_ENCRYPT&nbsp;|&nbsp;KeyProperties.PURPOSE_DECRYPT)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setBlockModes(KeyProperties.BLOCK_MODE_GCM)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build();&nbsp;&nbsp;KeyGenerator&nbsp;keyGen&nbsp;=&nbsp;KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,&nbsp;"AndroidKeyStore");&nbsp;keyGen.init(spec);&nbsp;SecretKey&nbsp;secretKey&nbsp;=&nbsp;keyGen.generateKey();&nbsp;&nbsp;//&nbsp;Utiliser&nbsp;la&nbsp;clé&nbsp;secrète&nbsp;pour&nbsp;les&nbsp;opérations&nbsp;cryptographiques&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKey);&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;cipher.getIV();&nbsp;GCMParameterSpec&nbsp;paramSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKey,&nbsp;paramSpec);&nbsp;byte[]&nbsp;encryptedData&nbsp;=&nbsp;cipher.doFinal("Données&nbsp;à&nbsp;chiffrer".getBytes());&nbsp;</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
         </tr>
         <tr>
             <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
@@ -125,9 +125,9 @@
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">14</td>
             <td class="mono">SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, "AES/ECB/PKCS7Padding");</td>
-            <td>L'utilisation de primitives cryptographiques faibles ou dépréciées, telles que "AES/ECB/PKCS7Padding", peut rendre l'application vulnérable aux attaques cryptographiques. Le mode ECB (Electronic Codebook) est considéré comme faible car il ne fournit pas de confidentialité et peut être vulnérable aux attaques par analyse de fréquences. De plus, le padding PKCS#7 n'est pas recommandé pour les nouvelles applications. L'utilisation de l'Android Keystore System est recommandée pour stocker et gérer les clés cryptographiques de manière sécurisée.</td>
-            <td>Si cette vulnérabilité est exploitée, un attaquant pourrait potentiellement déchiffrer les données chiffrées, ce qui pourrait entraîner des conséquences graves telles que la fuite de données sensibles ou la perte de confidentialité.</td>
-            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;vous&nbsp;pouvez&nbsp;utiliser&nbsp;l'Android&nbsp;Keystore&nbsp;System&nbsp;pour&nbsp;générer&nbsp;et&nbsp;stocker&nbsp;les&nbsp;clés&nbsp;cryptographiques&nbsp;de&nbsp;manière&nbsp;sécurisée.&nbsp;Voici&nbsp;un&nbsp;exemple&nbsp;de&nbsp;code&nbsp;Java&nbsp;Android&nbsp;qui&nbsp;utilise&nbsp;l'Android&nbsp;Keystore&nbsp;System&nbsp;pour&nbsp;chiffrer&nbsp;et&nbsp;déchiffrer&nbsp;des&nbsp;données&nbsp;:&nbsp;<br><br>//&nbsp;Générer&nbsp;une&nbsp;clé&nbsp;cryptographique<br>KeyGenParameterSpec&nbsp;spec&nbsp;=&nbsp;new&nbsp;KeyGenParameterSpec.Builder("alias",&nbsp;KeyProperties.PURPOSE_ENCRYPT&nbsp;|&nbsp;KeyProperties.PURPOSE_DECRYPT)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.setBlockModes(KeyProperties.BLOCK_MODE_GCM)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.build();<br>KeyGenerator&nbsp;keyGen&nbsp;=&nbsp;KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES,&nbsp;"AndroidKeyStore");<br>keyGen.init(spec);<br>SecretKey&nbsp;secretKey&nbsp;=&nbsp;keyGen.generateKey();<br><br>//&nbsp;Chiffrer&nbsp;des&nbsp;données<br>Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");<br>cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKey);<br>byte[]&nbsp;encryptedData&nbsp;=&nbsp;cipher.doFinal(data);<br><br>//&nbsp;Déchiffrer&nbsp;des&nbsp;données<br>cipher.init(Cipher.DECRYPT_MODE,&nbsp;secretKey);<br>byte[]&nbsp;decryptedData&nbsp;=&nbsp;cipher.doFinal(encryptedData);</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
         </tr>
         <tr>
             <td><span class="badge" style="background:#ff8800">MAJEUR</span></td>
@@ -136,9 +136,240 @@
             <td class="mono">C0000a.java</td>
             <td style="text-align:center">15</td>
             <td class="mono">Cipher cipher = Cipher.getInstance("AES");</td>
-            <td>La vulnérabilité se situe dans l'utilisation de l'algorithme de chiffrement AES sans spécifier le mode de chiffrement et le type de padding. L'utilisation de Cipher.getInstance("AES") peut conduire à l'utilisation d'un mode de chiffrement ECB (Electronic Codebook) par défaut, qui est considéré comme non sécurisé. De plus, le type de padding n'est pas spécifié, ce qui peut entraîner des problèmes de sécurité tels que les attaques par padding oracle.</td>
-            <td>Si cette vulnérabilité est exploitée, un attaquant peut être en mesure de déchiffrer les données sensibles chiffrées par l'application, ce qui peut avoir des conséquences graves telles que la fuite de données confidentielles ou la compromission de la sécurité des utilisateurs.</td>
-            <td class="mono" style="color:#a8ff78">Pour&nbsp;corriger&nbsp;cette&nbsp;vulnérabilité,&nbsp;il&nbsp;est&nbsp;recommandé&nbsp;d'utiliser&nbsp;une&nbsp;implémentation&nbsp;éprouvée&nbsp;de&nbsp;primitives&nbsp;cryptographiques,&nbsp;telle&nbsp;que&nbsp;Cipher.getInstance("AES/GCM/NoPadding").&nbsp;Cela&nbsp;spécifie&nbsp;l'utilisation&nbsp;de&nbsp;l'algorithme&nbsp;de&nbsp;chiffrement&nbsp;AES&nbsp;avec&nbsp;le&nbsp;mode&nbsp;de&nbsp;chiffrement&nbsp;GCM&nbsp;(Galois/Counter&nbsp;Mode)&nbsp;et&nbsp;le&nbsp;type&nbsp;de&nbsp;padding&nbsp;NoPadding,&nbsp;qui&nbsp;est&nbsp;considéré&nbsp;comme&nbsp;sécurisé.&nbsp;Voici&nbsp;un&nbsp;exemple&nbsp;de&nbsp;code&nbsp;Java&nbsp;Android&nbsp;corrigé&nbsp;:&nbsp;<br><br>import&nbsp;javax.crypto.Cipher;&nbsp;<br>import&nbsp;javax.crypto.spec.GCMParameterSpec;&nbsp;<br>import&nbsp;javax.crypto.spec.SecretKeySpec;&nbsp;<br>import&nbsp;java.security.SecureRandom;&nbsp;<br><br>public&nbsp;class&nbsp;Crypto&nbsp;{&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;public&nbsp;static&nbsp;byte[]&nbsp;encrypt(byte[]&nbsp;plaintext,&nbsp;byte[]&nbsp;key)&nbsp;throws&nbsp;Exception&nbsp;{&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Générer&nbsp;un&nbsp;vecteur&nbsp;d'initialisation&nbsp;aléatoire&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecureRandom&nbsp;random&nbsp;=&nbsp;new&nbsp;SecureRandom();&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;iv&nbsp;=&nbsp;new&nbsp;byte[12];&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;random.nextBytes(iv);&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Créer&nbsp;une&nbsp;clé&nbsp;secrète&nbsp;à&nbsp;partir&nbsp;de&nbsp;la&nbsp;clé&nbsp;fournie&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SecretKeySpec&nbsp;secretKeySpec&nbsp;=&nbsp;new&nbsp;SecretKeySpec(key,&nbsp;"AES");&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Créer&nbsp;un&nbsp;objet&nbsp;Cipher&nbsp;avec&nbsp;l'algorithme&nbsp;AES/GCM/NoPadding&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cipher&nbsp;cipher&nbsp;=&nbsp;Cipher.getInstance("AES/GCM/NoPadding");&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Initialiser&nbsp;le&nbsp;Cipher&nbsp;pour&nbsp;le&nbsp;chiffrement&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GCMParameterSpec&nbsp;parameterSpec&nbsp;=&nbsp;new&nbsp;GCMParameterSpec(128,&nbsp;iv);&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cipher.init(Cipher.ENCRYPT_MODE,&nbsp;secretKeySpec,&nbsp;parameterSpec);&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Chiffrer&nbsp;les&nbsp;données&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;ciphertext&nbsp;=&nbsp;cipher.doFinal(plaintext);&nbsp;<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;Retourner&nbsp;le&nbsp;vecteur&nbsp;d'initialisation&nbsp;et&nbsp;les&nbsp;données&nbsp;chiffrées&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;byte[]&nbsp;result&nbsp;=&nbsp;new&nbsp;byte[iv.length&nbsp;+&nbsp;ciphertext.length];&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(iv,&nbsp;0,&nbsp;result,&nbsp;0,&nbsp;iv.length);&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.arraycopy(ciphertext,&nbsp;0,&nbsp;result,&nbsp;iv.length,&nbsp;ciphertext.length);&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;result;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;<br>}</td>
+            <td>Cipher.getInstance('AES') utilise ECB par défaut.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Cipher.getInstance('AES/GCM/NoPadding')</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff8800">MAJEUR</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Random() — Générateur non cryptographique</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">Tracker.java</td>
+            <td style="text-align:center">121</td>
+            <td class="mono">this.zzyn.put("&a", Integer.toString(new Random().nextInt(ActivityChooserView.ActivityChooserViewAdapter.MAX_ACTIVITY_COUNT_UNLIMITED) + 1));</td>
+            <td>java.util.Random est prédictible.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;java.security.SecureRandom.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>SHA-1 — Algorithme déprécié</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">InstanceID.java</td>
+            <td style="text-align:center">62</td>
+            <td class="mono">byte[] bArrDigest = MessageDigest.getInstance("SHA1").digest(keyPair.getPublic().getEncoded());</td>
+            <td>SHA-1 est vulnérable aux attaques par collision depuis 2017.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;minimum.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff8800">MAJEUR</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Random() — Générateur non cryptographique</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzc.java</td>
+            <td style="text-align:center">143</td>
+            <td class="mono">this.zzaxn = new Random().nextInt(1000) + 1000;</td>
+            <td>java.util.Random est prédictible.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;java.security.SecureRandom.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>MD5 — Algorithme de hachage cassé</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzak.java</td>
+            <td style="text-align:center">81</td>
+            <td class="mono">MessageDigest messageDigest = MessageDigest.getInstance("MD5");</td>
+            <td>MD5 est cryptographiquement cassé depuis 2004.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;(MessageDigest.getInstance('SHA-256'))</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzar.java</td>
+            <td style="text-align:center">12</td>
+            <td class="mono">import javax.crypto.spec.IvParameterSpec;</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzar.java</td>
+            <td style="text-align:center">13</td>
+            <td class="mono">import javax.crypto.spec.SecretKeySpec;</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzar.java</td>
+            <td style="text-align:center">56</td>
+            <td class="mono">SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, "AES");</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzar.java</td>
+            <td style="text-align:center">58</td>
+            <td class="mono">cipher.init(2, secretKeySpec, new IvParameterSpec(bArr2));</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>MD5 — Algorithme de hachage cassé</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzbl.java</td>
+            <td style="text-align:center">19</td>
+            <td class="mono">zzrK = MessageDigest.getInstance("MD5");</td>
+            <td>MD5 est cryptographiquement cassé depuis 2004.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;(MessageDigest.getInstance('SHA-256'))</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>MD5 — Algorithme de hachage cassé</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzhl.java</td>
+            <td style="text-align:center">573</td>
+            <td class="mono">MessageDigest messageDigest = MessageDigest.getInstance("MD5");</td>
+            <td>MD5 est cryptographiquement cassé depuis 2004.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;(MessageDigest.getInstance('SHA-256'))</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>MD5 — Algorithme de hachage cassé</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzap.java</td>
+            <td style="text-align:center">36</td>
+            <td class="mono">String strZzg2 = zzaVar2 == null ? "MD5" : zzdf.zzg(zzaVar2);</td>
+            <td>MD5 est cryptographiquement cassé depuis 2004.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;(MessageDigest.getInstance('SHA-256'))</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>MD5 — Algorithme de hachage cassé</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zza.java</td>
+            <td style="text-align:center">66</td>
+            <td class="mono">MessageDigest messageDigestZzbl = zzam.zzbl("MD5");</td>
+            <td>MD5 est cryptographiquement cassé depuis 2004.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;(MessageDigest.getInstance('SHA-256'))</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff8800">MAJEUR</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Random() — Générateur non cryptographique</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzl.java</td>
+            <td style="text-align:center">10</td>
+            <td class="mono">private final Random zzsz = new Random();</td>
+            <td>java.util.Random est prédictible.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;java.security.SecureRandom.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>SHA-1 — Algorithme déprécié</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zzl.java</td>
+            <td style="text-align:center">20</td>
+            <td class="mono">Signature signature = Signature.getInstance("SHA1withRSA");</td>
+            <td>SHA-1 est vulnérable aux attaques par collision depuis 2017.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;minimum.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>MD5 — Algorithme de hachage cassé</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">zza.java</td>
+            <td style="text-align:center">116</td>
+            <td class="mono">MessageDigest messageDigest = MessageDigest.getInstance("MD5");</td>
+            <td>MD5 est cryptographiquement cassé depuis 2004.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;SHA-256&nbsp;(MessageDigest.getInstance('SHA-256'))</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">CryptoClass.java</td>
+            <td style="text-align:center">13</td>
+            <td class="mono">import javax.crypto.spec.IvParameterSpec;</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">CryptoClass.java</td>
+            <td style="text-align:center">14</td>
+            <td class="mono">import javax.crypto.spec.SecretKeySpec;</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">CryptoClass.java</td>
+            <td style="text-align:center">26</td>
+            <td class="mono">AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">CryptoClass.java</td>
+            <td style="text-align:center">27</td>
+            <td class="mono">SecretKeySpec newKey = new SecretKeySpec(keyBytes, "AES");</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">CryptoClass.java</td>
+            <td style="text-align:center">34</td>
+            <td class="mono">AlgorithmParameterSpec ivSpec = new IvParameterSpec(ivBytes);</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
+        </tr>
+        <tr>
+            <td><span class="badge" style="background:#ff4444">CRITIQUE</span></td>
+            <td><a class="masvs-tag" href="https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/" target="_blank">MASVS-CRYPTO-1</a></td>
+            <td><strong>Clé cryptographique hardcodée</strong><br><small style="color:#8b949e;font-style:italic">"L'app n'utilise pas de primitives cryptographiques faibles ou dépréciées."</small></td>
+            <td class="mono">CryptoClass.java</td>
+            <td style="text-align:center">35</td>
+            <td class="mono">SecretKeySpec newKey = new SecretKeySpec(keyBytes, "AES");</td>
+            <td>Clé cryptographique définie en dur dans le code source.</td>
+            <td>Non disponible</td>
+            <td class="mono" style="color:#a8ff78">Utiliser&nbsp;Android&nbsp;Keystore&nbsp;System.</td>
         </tr>
     </table>
     </div>
